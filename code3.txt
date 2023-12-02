@@ -1,0 +1,62 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: ImageCycleScreen(),
+    );
+  }
+}
+
+class ImageCycleScreen extends StatefulWidget {
+  @override
+  _ImageCycleScreenState createState() => _ImageCycleScreenState();
+}
+
+class _ImageCycleScreenState extends State<ImageCycleScreen> {
+  int currentImageIndex = 0;
+  List<String> imagePaths = [
+    'images/im1.jpeg',
+    'images/im2.jpeg',
+    'images/im3.jpeg',
+    'images/im4.jpeg',
+    'images/im5.jpeg',
+  ];
+
+  void changeImage() {
+    setState(() {
+      currentImageIndex = (currentImageIndex + 1) % imagePaths.length;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Image Cycle'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              imagePaths[currentImageIndex],
+              width: 200,
+              height: 200,
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: changeImage,
+              child: Text('Change Image'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
